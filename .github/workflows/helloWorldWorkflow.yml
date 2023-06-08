@@ -1,26 +1,19 @@
 name: helloWorld
 
 on:
-  push:
-    branches: [ "main" ]
   workflow_dispatch:
+    inputs:
+      pokemon-name:
+        description: 'name of pokemon'     
+        required: true
 
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
 
-      - uses: actions/checkout@v3
-
-      - name: Run a one-line script
-        run: echo Hello, world!
-
-      # Runs a set of commands using the runners shell
-      - name: Run a multi-line script
+      - name: get-pokemon
+        env: 
+          POKEMON: ${{ inputs.pokemon-name }}
         run: |
-          echo Add other actions to build,
-          echo test, and deploy your project.
-
-      - name: Run hello world script
-        run: |
-          ./helloWorld.sh 
+          curl https://pokeapi.co/api/v2/pokemon/${POKEMON} | jq '.abilities[].ability' 
