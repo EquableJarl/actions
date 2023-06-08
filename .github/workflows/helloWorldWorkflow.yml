@@ -8,7 +8,7 @@ on:
         required: true
 
 jobs:
-  build:
+  get-pokemon-abilities:
     runs-on: ubuntu-latest
     steps:
 
@@ -16,4 +16,9 @@ jobs:
         env: 
           POKEMON: ${{ inputs.pokemon-name }}
         run: |
-          curl https://pokeapi.co/api/v2/pokemon/${POKEMON} | jq '.abilities[].ability' 
+          ABILITIES=$(curl https://pokeapi.co/api/v2/pokemon/${POKEMON} | jq '.abilities[].ability')
+          echo $ABILITIES
+
+      - name: test of vars
+        run: |
+          echo $ABILITIES
