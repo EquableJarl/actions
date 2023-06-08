@@ -16,4 +16,4 @@ jobs:
         env: 
           POKEMON: ${{ inputs.pokemon-name }}
         run: |
-          curl https://pokeapi.co/api/v2/pokemon/${POKEMON} | jq '.abilities[].ability' 
+          curl https://pokeapi.co/api/v2/pokemon/${POKEMON} | jq
